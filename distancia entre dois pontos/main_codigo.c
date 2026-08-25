@@ -1,7 +1,5 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include "codigo.h"
-#include <math.h>
 
 int main(){
     Ponto* p1 = criar_pontos(2.0, 3.0);
