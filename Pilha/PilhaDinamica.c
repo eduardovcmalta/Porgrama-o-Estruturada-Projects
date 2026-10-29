@@ -34,7 +34,6 @@ int pop(Pilha p){
     Elem* aux = p->topo;
     p->topo = p->topo->prox;
     free(aux);
-    p->topo--;
     return 1;
 }
 
@@ -64,3 +63,14 @@ void destruir(Pilha p){
     free(p);
 }
 
+
+int main(){
+    Pilha p = criar();
+    push(p, 10);
+    push(p, 40);
+    push(p, 2);
+    pop(p);
+    imprimir(p);
+    
+    return 0;
+}
