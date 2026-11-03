@@ -15,7 +15,8 @@ typedef struct pilha *Pilha;
 Pilha criar(){
     Pilha p = malloc(sizeof(struct pilha));
     if( p == NULL) return NULL;
-
+    p->topo = NULL;
+    return p;
 }
 
 int push(Pilha p, int valor){
@@ -26,34 +27,34 @@ int push(Pilha p, int valor){
 
     no->valor = valor;
     no->prox = NULL;
+    no->ant = p->topo;
 
-    if(p->topo == NULL){
-        p->topo = no;
-        no->ant = NULL;
-    }else{
+    if(p->topo != NULL){
         p->topo->prox = no;
-        no->ant = p->topo;
-        p->topo = no;
     }
+    p->topo = no;
     return 1;
 }
 
-int pop(Pilha p){
+int pop(Pilha p, int *valor){
     if(p == NULL || p->topo == NULL) return 0;
+
     Elem *remove = p->topo;
-    p->topo = p->topo->ant;
-    p->topo->prox = NULL;
+    p->topo = remove->ant;
+    if(p->topo != NULL){
+        p->topo->prox = NULL;
+    }
     free(remove);
     return 1;
 }
 
-int peek(Pilha p){
+int peek(Pilha p, int *valor){
     if(p == NULL || p->topo == NULL) return 0;
     return p->topo->valor;
 }
 
-void free(Pilha p){
-    if(p == NULL || p->topo == NULL) return;
+void destruir(Pilha p){
+    if(p == NULL) return;
 
     Elem* no = p->topo;
     while(no != NULL){
